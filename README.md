@@ -1,4 +1,4 @@
 homework-project
 ================
 
-A repo for course homework
+My first repo for course homework
