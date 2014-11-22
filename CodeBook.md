@@ -23,8 +23,8 @@ smartphone on their waist while performing 6 types of activity.
 The considered activities were, walking, walking upstairs,
 walking downstairs, sitting, standing, and laying. 
 Series of measurements of 3-axial linear acceleration and 
-3-axial angular velocity were collected for each volunteer and
-each activity.
+3-axial angular velocity were collected at constant rate of 50Hz
+for each volunteer and each activity.
 Further explanations are contained in the README.txt file that
 accompanies the original data set.
 
@@ -42,19 +42,32 @@ Support Vector Machine. International Workshop of Ambient Assisted Living
 
 The raw data set contains a file 'activity_labels.txt' listing the 
 activity names and their identification number, which is then 
-used in the measurement files. The names of the 561 measured 
-quantities are given in the file 'features.txt' and their meaning is
-explained in 'features_info.txt'. The measurements are split in
-a 'test' data set and a 'training' data set, each of which is
-composed of a set of measurements contained in a txt file
-with 561 space-separated columns and no column names (X_test.txt
-and X_train.txt), plus another
-two txt files with the same number of rows, containing the 
-activity id (y_test.txt and y_train.txt) and the person id
-(subject_test.txt and subject_train.txt), respectively, for each 
-of the measurement rows.
-The names corresponding to the 561 columns in the measurement files
-are:
+used in the measurement files. 
+The file 'features.txt' contains the names of the 561 measured
+variables that resulted from pre-processing and resampling the
+accelerometer and gyroscope signals as explained in the accompanying
+README.txt file. The meaning of these variables is explained in the 
+accompanying file 'features_info.txt'. 
+
+The measurements are split in
+a 'test' data set (30%) and a 'training' data set (70%).
+Each of these two data sets is composed of sets of measurements of the 
+561 variables contained in a txt file with 561 space-separated columns 
+without column names (X_test.txt and X_train.txt). The columns are
+in the same order as the variables listed in 'features.txt'.
+Additional two txt files with the same number of rows as the measurement sets, 
+contain the activity id (y_test.txt and y_train.txt) and an identifier of
+the subject who carried out the experiment (subject_test.txt and subject_train.txt),
+respectively, for each of the measurement rows.
+The names of the 561 variables in the measurement files
+are given below. Time-domain variables start with 't' and frequency domanain variables
+start with 'f'. XYZ denote the 3 axis along which measurements were taken. 
+'Acc' and 'Gyro' indicate measurements that use the signals from the accelerators
+and gyroscopes, respectively. An additional string in the variable name indicates
+the operation that was performed on the quantities (mean, standard deviation, etc., see below).
+
+The measurements from the gyroscopes are in units of radians/second.
+The measurements from the accelerators are in standard gravity units of 'g'.
 
 1 tBodyAcc-mean()-X  
 2 tBodyAcc-mean()-Y  
@@ -618,6 +631,26 @@ are:
 560 angle(Y,gravityMean)  
 561 angle(Z,gravityMean)  
 
+The estimates performed on the signals are the following:
+
+mean(): Mean value  
+std(): Standard deviation  
+mad(): Median absolute deviation   
+max(): Largest value in array  
+min(): Smallest value in array  
+sma(): Signal magnitude area  
+energy(): Energy measure. Sum of the squares divided by the number of values.   
+iqr(): Interquartile range   
+entropy(): Signal entropy  
+arCoeff(): Autorregresion coefficients with Burg order equal to 4  
+correlation(): correlation coefficient between two signals  
+maxInds(): index of the frequency component with largest magnitude  
+meanFreq(): Weighted average of the frequency components to obtain a mean frequency  
+skewness(): skewness of the frequency domain signal  
+kurtosis(): kurtosis of the frequency domain signal   
+bandsEnergy(): Energy of a frequency interval within the 64 bins of the FFT of each window.  
+angle(): Angle between to vectors.  
+
 ### Data transformation
 
 The txt files were read into data frames and merged together
@@ -632,24 +665,49 @@ above.
 
 A subset of tidy data was obtained from the above data frame
 by discarding the activityID column in favour of the more
-descriptive activityName and retaining only those
-columns with calculated mean and standard deviation of 
-measured quantities. It was chosen not to keep quantities
-for which only a mean, but not a standard deviation were available.
-The variable names have been edited so that they are still
+descriptive activityName and retaining only the variables
+representing the mean and standard deviation of the
+following quantities:  
+
+tBodyAcc-XYZ  
+tGravityAcc-XYZ  
+tBodyAccJerk-XYZ  
+tBodyGyro-XYZ  
+tBodyGyroJerk-XYZ  
+tBodyAccMag  
+tGravityAccMag  
+tBodyAccJerkMag  
+tBodyGyroMag  
+tBodyGyroJerkMag  
+fBodyAcc-XYZ  
+fBodyAccJerk-XYZ  
+fBodyGyro-XYZ  
+fBodyAccMag  
+fBodyAccJerkMag  
+fBodyGyroMag  
+fBodyGyroJerkMag  
+
+Hence the selected subset contains 66 variables with measurements
+as well as a subject identifier and an activity descriptor.
+
+The names of variables have been edited so that they are still
 descriptive like the original ones but do not contain any space,
 nor "-", "()" signs. 
 For improving human readability, the first character
 of each word composing a variable name is capitalized, except for
 the first word.
 
-Finally, from this subset of data a new tidy data set has been
-created that contains the average values of the quantities in
+Finally, from this subset of data a new tidy data set in wide format
+has been created that contains the average values of the quantities in
 the previoius subset for each subject and activity. 
 Observations have been reordered according to activity type and
-subject id.
-This last data set includes the following
-68 variables:
+subject id. 
+
+### Outcome 
+
+The final outcome is a wide tidy data set composed of the following
+68 variables, with measurements in gravity units of 'g' for the
+accelerator signals and in units of radians/second for the gyroscope signals.
 
 "subject"                  
 "activityName"            
@@ -719,12 +777,5 @@ This last data set includes the following
 "fBodyBodyGyroMagStd"     
 "fBodyBodyGyroJerkMagMean" 
 "fBodyBodyGyroJerkMagStd" 
-
-### Outcome
-
-The outcome is a txt file that contains the final subset of
-tidy data.
-
-
 
 
