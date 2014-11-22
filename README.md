@@ -27,7 +27,8 @@ mean and standard deviation (std) of each measured quantity.
 - It modifies the variable names so that they are descriptives
 and consistently follow the same standard.
 
-- It creates a new, independent tidy data set with the average of each variable for each activity and each subject.
+- It creates a new, independent tidy data set with the average of each variable for each activity and each subject, reordered by activity
+and subject id.
 
 - It writes this new data set into a txt file.
 
