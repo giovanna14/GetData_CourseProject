@@ -706,8 +706,9 @@ subject id.
 ### Outcome 
 
 The final outcome is a wide tidy data set composed of the following
-68 variables, with measurements in gravity units of 'g' for the
-accelerator signals and in units of radians/second for the gyroscope signals.
+68 variables, with average mean and standard deviation measurements 
+in gravity units of 'g' for the accelerator signals and in units of 
+radians/second for the gyroscope signals.
 
 "subject"                  
 "activityName"            
@@ -775,7 +776,7 @@ accelerator signals and in units of radians/second for the gyroscope signals.
 "fBodyBodyAccJerkMagStd"  
 "fBodyBodyGyroMagMean"     
 "fBodyBodyGyroMagStd"     
-"fBodyBodyGyroJerkMagMean" 
+"fBodyBodyGyroJerkMagMean"   
 "fBodyBodyGyroJerkMagStd" 
 
 
